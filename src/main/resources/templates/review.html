@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="https://kit.fontawesome.com/5588f562de.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+</head>
+<style>
+  *{
+    font-family: 'Gowun Dodum', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  ::-webkit-scrollbar {
+    display:none;
+    width: 0;
+  }
+
+
+  .reviewMain{
+    border: 1px solid black;
+    width: 800px;
+    height: 520px;
+    margin: 30px auto;
+    border-radius: 8px;
+  }
+
+
+  #title{
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+    background-color: rgba(209, 239, 255, 0.8);
+  }
+
+  ul{
+    list-style: none;
+    margin-left: 50px;
+    margin-top: 25px;
+    height: 380px;
+    overflow: scroll;
+  }
+
+  li{
+    width: 700px;
+    height: 100px;
+    border: 1px solid pink;
+    margin-bottom: 30px;
+    display: flex;
+    justify-self: center;
+  }
+
+  .photo{
+    background-image: url("냥3.jpg");
+    height: 100px;
+    width: 150px;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .info{
+    width: 300px;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  img{
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+  }
+
+  .moreInfo{
+    width: 150px;
+    display: flex;
+    margin-top: 35px;
+    padding-right: 10px;
+    justify-content: right;
+  }
+
+  .moreInfo:hover{
+    cursor: pointer;
+  }
+
+  input{
+    border-radius: 8px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
+  .buttons{
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  button{
+    width: 30%;
+    height: 30px;
+    font-size: 1rem;
+    background-color: white;
+    border: 1px solid black;
+  }
+
+  button:hover{
+    background-color: #f8e8f5;
+  }
+
+  button + button{
+    margin-left: 10px;
+  }
+</style>
+<body>
+    <section class="reviewMain">
+      <div id="title">리뷰</div>
+      <ul>
+        <li>
+          <input type="checkbox">
+          <div class="photo" id="photo1"></div>
+          <div class="info">
+            <div>제목 : 좋아요</div>
+            <div>작성 날짜 : 2021 / 12 / 21</div>
+            <div>평점 : ★★★★☆</div>
+          </div>
+          <div class="moreInfo">
+            <div>상세보기</div>
+            <img src="https://cdn-icons-png.flaticon.com/128/2722/2722998.png">
+          </div>
+        </li>
+        <li>
+          <input type="checkbox">
+          <div class="photo" id="photo2"></div>
+          <div class="info">
+            <div>제목 : 좋아요</div>
+            <div>작성 날짜 : 2021 / 12 / 21</div>
+            <div>평점 : ★★★★☆</div>
+          </div>
+          <div class="moreInfo">
+            <div>상세보기</div>
+            <img src="https://cdn-icons-png.flaticon.com/128/2722/2722998.png">
+          </div>
+        </li>
+        <li>
+          <input type="checkbox">
+          <div class="photo" id="photo3"></div>
+          <div class="info">
+            <div>제목 : 좋아요</div>
+            <div>작성 날짜 : 2021 / 12 / 21</div>
+            <div>평점 : ★★★★☆</div>
+          </div>
+          <div class="moreInfo">
+            <div>상세보기</div>
+            <img src="https://cdn-icons-png.flaticon.com/128/2722/2722998.png">
+          </div>
+        </li>
+
+        <li>
+          <input type="checkbox">
+          <div class="photo" id="photo4"></div>
+          <div class="info">
+            <div>제목 : 좋아요</div>
+            <div>작성 날짜 : 2021 / 12 / 21</div>
+            <div>평점 : ★★★★☆</div>
+          </div>
+          <div class="moreInfo">
+            <div>상세보기</div>
+            <img src="https://cdn-icons-png.flaticon.com/128/2722/2722998.png">
+          </div>
+        </li>
+      </ul>
+      <div class="buttons">
+        <button>전체선택</button>
+        <button>삭제하기</button>
+        <button>작성하기</button>
+      </div>
+    </section>
+</body>
+</html>

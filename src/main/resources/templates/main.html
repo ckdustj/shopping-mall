@@ -14,14 +14,10 @@
     }
 
     *{
-        margin: 0; 왜 안움직여>????
+        margin: 0;
         padding: 0;
         font-family: 'Gowun Dodum', sans-serif;
 
-    }
-
-    #userTab > a{
-        font-size: 2rem;
     }
 
     :root {
@@ -245,7 +241,6 @@
         right: 10px;
         position: absolute;
         width: 15%;
-        margin-right: 50px;
         justify-content: space-between;
     }
 
@@ -279,6 +274,25 @@
         font-size: 1rem;
     }
 
+    i{
+        font-size: 2rem;
+        padding-bottom: 5px;
+
+    }
+
+    button{
+        margin-top: 5px;
+        width: 110px;
+        height: 30px;
+        font-size: 1rem;
+        background-color: white;
+        border-radius: 8px;
+    }
+
+    button:hover{
+        cursor: pointer;
+    }
+
     </style>
 <body>
     <div class="contentWrapper">
@@ -291,10 +305,7 @@
                 </div>
             </div>
             <div id="userTab">
-                <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
-                <a href=""><i class="fa-solid fa-heart"></i></a>
-                <a href=""><i class="fa-solid fa-user"></i></a>
-                <a href=""><i class="fa-solid fa-headset"></i></a>
+                <button>마이페이지</button>
             </div>
         </header>
         <section class="tab">
