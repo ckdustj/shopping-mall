@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://kit.fontawesome.com/5588f562de.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/pay.css">
+</head>
+<body>
+    <div class="content-wrapper">
+        <header>
+            <div class="header_wrap" >
+                <div id="search">
+                    <div class="headerInner">SHOPPING</div>
+                    <div id="searchText">
+                        <textarea></textarea>
+                        <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
+                    </div>
+                </div>
+                <div id="userTab">
+                    <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+                    <a href=""><i class="fa-solid fa-heart"></i></a>
+                    <a href=""><i class="fa-solid fa-user"></i></a>
+                    <a href=""><i class="fa-solid fa-headset"></i></a>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div id="title"> 주문 / 결제하기</div>
+            <section class="payMain">
+                    <div class="category">
+                    <button id="addressBtn">배송지</button>
+                    <div class="payInfo"><button class="addrBtn" >배송지 입력하기</button> 배송지를 입력하면 이후에 이렇게 글자로 나타날건데 배송지가 긴 경우 숨겨집니다...</div>
+                    <a href=""><i class="fa-solid fa-chevron-right"></i></a>
+                    </div>
+
+                <div class="category">
+                    <button id="askBtn"><span>배송</span><br><span>요청사항</span></button>
+                    <div class="payInfo"><input type="text"></div>
+                    <a href=""><i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+                <div class="category">
+                    <button id="nameBtn">이름</button>
+                    <div class="payInfo"><input type="text" id="nameInfo"></div>
+                    <a href=""><i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+                <div class="category">
+                    <button id="numBtn">전화번호</button>
+                    <div class="payInfo"><input type="text" id="numInfo" placeholder="000-0000-0000 형식으로 입력 해주세요"></div>
+                    <a href=""><i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+                <div class="payment">
+                    <div id="payTitle">결제수단</div>
+                    <div id="payWay">
+                            <input type="radio" name="select" class="selectCards" value="easy" checked/> 간편결제
+                            <input type="radio" name="select" class="selectCards" value="card" /> 카드결제
+                    </div>
+                    <div class="cardPay">
+                        <p>카드결제 수단을 선택해주세요</p>
+                        <select>
+                            <option hidden="hidden">카드선택</option>
+                            <option>신한카드</option>
+                            <option>국민카드</option>
+                            <option>현대카드</option>
+                        </select>
+                        <select>
+                            <option hidden="hidden">할부개월</option>
+                            <option>일시불</option>
+                            <option>1개월</option>
+                            <option>2개월</option>
+                            <option>3개월</option>
+                        </select>
+                    </div>
+                    <div class="easyPay">
+                        <p>간편결제 수단을 선택해주세요</p>
+                        <div ID="radios">
+                            <div class="cardpaySelect">
+                                <div id="kakao"></div>
+                                <input type="radio" name="card" value="kakao" checked/>
+                                <p>카카오페이</p>
+                            </div>
+                            <div class="cardpaySelect">
+                                <div id="naver"></div>
+                                <input type="radio" name="card" value="naver"/>
+                                <p>네이버페이</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="payCheck">
+                    <h1><a href="mybag.html">결제상세</a></h1>
+                    <h3>주문금액 : 200000원</h3>
+                    <h3>결제하기 버튼을 누를 시, 주문 내용을 모두 확인하였으며
+                    정보 제공에 동의한 것으로 입력됩니다.</h3>
+                </div>
+                <form action=""><button id="pay">결제하기</button></form>
+            </section>
+        </main>
+        <footer class="footer">
+            <div class="footCorp">
+                <ul class="corpList">
+                    <div>I expound the actual that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces 회사정보입니다 ....</div>
+                </ul>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
+<script>
+    const [cardPayBtn, easyPayBtn] = document.getElementsByClassName('selectCards');
+    const easyPay = document.querySelector('.easyPay');
+    const cardPay = document.querySelector('.cardPay');
+    const addrBtn = document.querySelector('.addrBtn');
+    const nameInfo = document.getElementById('nameInfo');
+    const numInfo = document.getElementById('numInfo');
+    const pay = document.getElementById('pay');
+
+    cardPayBtn.onchange = () => {
+        cardPay.style.display = "none";
+        easyPay.style.display = "block"
+    }
+
+    easyPayBtn.onchange = () => {
+        cardPay.style.display = "block";
+        easyPay.style.display = "none";
+    }
+
+    pay.onclick = () => {
+        if (nameInfo.value == ""){
+            alert("이름을 입력해주세요");
+        }else if(numInfo.value == ""){
+            alert("전화번호를 입력해주세요");
+        }else{
+            alert("결제 완료되었습니다")
+        }
+    }
+
+    addrBtn.onclick = () => {
+        window.open("http://localhost:8080", "page", "width=600, height=600, scrollbars=yes");
+    }
+
+
+
+</script>

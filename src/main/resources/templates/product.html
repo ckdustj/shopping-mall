@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/5588f562de.js" crossorigin="anonymous"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    @font-face {
+        font-family: 'Gowun Dodum', sans-serif;
+    }
+
+    ::-webkit-scrollbar{
+        display: none;
+    }
+
+    *{
+        font-family: 'Gowun Dodum', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    #content_wrapper{
+        margin-top: 50px;
+        width: 1000px;
+        display: flex;
+        background-color: azure;
+    }
+
+    .contents{
+        margin: 0 auto;
+        display: flex;
+    }
+
+    .prod_img{
+        width: 250px;
+        height: 400px;
+        background-image: url("https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzExMDFfNDMg%2FMDAxNjk4ODI5NzcwNjY4.Tcx5YfAmQeTjZ6rr_PNUHEbUGX9OLANbNK5V6LjDOU4g.cNJd-ek3T6XgYphoGDvQGYLjixyrFoxzbFz6XGVT1_4g.JPEG.joohwan0705%2F1698829759_2194_32980.jpg&type=a340");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin-right: 30px;
+    }
+
+    .prod_info{
+        display: flex;
+        flex-direction: column;
+    }
+
+    h1{
+        font-size: 20px;
+        margin-top: 8px;
+    }
+
+    .prod_price{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .prod_price > div+div {
+        font-size: 18px;
+        font-weight: bold;
+        color: #525252;
+    }
+
+    #sale{
+        font-size: 15px;
+        color: #f75d5d;
+        font-weight: bold;
+    }
+
+
+
+    .info1{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100px;
+        border: 1px solid black;
+        padding: 10px 10px;
+        width: 250px;
+    }
+
+    .info1 > div {
+        font-size: 13px;
+    }
+
+    .option{
+        display: none;
+    }
+
+    button{
+        width: 32%;
+        height: 30px;
+        background-color: white;
+        border: 0.5px solid black;
+        font-weight: bold;
+    }
+
+
+    li{
+        list-style: none;
+        width: 90%;
+        height: 100px;
+        border: 1px solid grey;
+        margin-top: 10px;
+    }
+
+    ul{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .moreInfo{
+        width: 1000px;
+        background-color: aliceblue;
+        height: 2000px;
+        text-align: center;
+    }
+
+
+    #mainImg{
+        background-image: url("https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzEwMTRfMjc0%2FMDAxNjk3MjIyMjUxMTQ3.KOHbucy6gybAA0ZE48qVABl8Mnn3cHCZwPiorW9_R-Ag.XzbLxVBeUrRyKnIfO9xVDPF0Y2sTIUdpQwzjU67_rHkg.JPEG.ovo--vnv%2F%25BB%25EA%25B8%25AE%25BF%25C0_%25B9%25E8%25B0%25E6%25C8%25AD%25B8%25E9_%252815%2529.jpg&type=sc960_832");
+        width: 1000px;
+        height: 300px;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .btns{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    #buyBtn{
+        width: 100%;
+        margin-top: 10px;
+        background-color: pink;
+        font-weight: bold;
+    }
+
+    .result_price{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    p{
+        font-size: 13px;
+    }
+
+    #number_select{
+        margin-top: 10px;
+        margin-bottom: 3px;
+
+    }
+    span{
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .prod_deliver > span {
+        font-size: 12px;
+        font-weight: unset;
+    }
+
+    i{
+        border: 1px solid black;
+        padding: 4px 4px;
+        border-radius: 50%;
+    }
+
+    .prod_deliver{
+        text-align: center;
+    }
+
+    select + select {
+        margin-top: 5px;
+    }
+
+    .moreImg{
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .moreImg > div{
+        width: 300px;
+        height: 500px;
+    }
+
+    .title{
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+    #explain{
+        font-size: 20px;
+        margin-top: 30px;
+    }
+
+    #reviewBtn{
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #reviewBtn > button {
+        border: none;
+    }
+
+    #reviewBtn > button+button{
+        border-left: 1px solid black;
+        border-left-style: dotted;
+    }
+
+    button:hover{
+        cursor: pointer;
+    }
+
+    .reviewList{
+        display: flex;
+        text-align: left;
+    }
+
+
+
+    .reviewImg{
+        background-image: url("냥3.jpg");
+        width: 200px;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .review{
+        font-size: 20px;
+    }
+
+    #img1{background-image: url("https://search.pstatic.net/sunny/?src=https%3A%2F%2Fi1.sndcdn.com%2Favatars-MHCTroSu4UFTUBnX-KfviCg-t500x500.jpg&type=a340")}
+    #img2{background-image: url("https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTA3MjlfMjA2%2FMDAxNjI3NTU3NDg3NTQz.t0H8MPZHM3QSriR5N7LghaxAriQynPj2kk1FWE2Ym_4g.urozNxZMpWihgrHoHOjKf3F60DH_MwbYAHFNimDlLGEg.JPEG.vterfan%2FIMG_6649.JPG&type=ofullfill340_600_png")}
+    #img3{background-image: url("https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjAyMTdfMTg4%2FMDAxNjQ1MDgyMzQwNTc5.o4aZobvzWwQiqnsN0NdcbBqlqzzBF-8zjKu_h_XRqgog.q6T428j8C-LepDZUGsnXNK_uwFJ3e5w2C8N-7AtgSPIg.PNG.solinsystem%2F%25BD%25C3%25B3%25AA%25B8%25F0%25B7%25D1_5.png&type=ofullfill340_600_png")}
+
+</style>
+<body>
+  <section id="content_wrapper">
+      <section class="contents">
+          <section class="prod_img"></section>
+          <section class="prod_info">
+              <div class="prod_name"><h1>시나모롤 인형</h1></div>
+              <div class="prod_price"><div id="sale">47%</div><div>20000원</div></div>
+              <section class="info1">
+                  <div class="prod_detail">상세설명 : 인형입니다 보들보들</div>
+                  <div class="prod-Shipping">배송정보 : 평균 2일 소요됩니다</div>
+                  <div class="prod_deliver"><i class="fa-solid fa-truck"></i> <span>2시전에 주문하시면 당일발송됩니다.</span></div>
+                  <div class="option"></div>
+              </section>
+              <p id="number_select">옵션선택</p>
+              <select>
+                  <option hidden="hidden">크기</option>
+                  <option>1번</option>
+                  <option>2번</option>
+                  <option>3번</option>
+              </select>
+              <select>
+                  <option hidden="hidden">색상</option>
+                  <option>1번</option>
+                  <option>2번</option>
+                  <option>3번</option>
+              </select>
+              <div class="result_price"><p>총 상품금액</p> <span> 20000원</span></div>
+              <button id="buyBtn">구매하기</button>
+              <div class="btns">
+                  <button>장바구니</button>
+                  <button>찜하기</button>
+                  <button>문의하기</button>
+              </div>
+          </section>
+      </section>
+  </section>
+  <section class="moreInfo">
+      <div id="mainImg"></div>
+      <div class="title">상세설명입니다.</div>
+      <div class="title">상세설명입니다222222.</div>
+      <section class="moreImg">
+          <div id="img1"></div>
+          <div id="img2"></div>
+          <div id="img3"></div>
+      </section>
+      <div id="explain">제품에 대한 소개글을 적습니다.
+          It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+      </div>
+      <section class="review">
+          <div id="reviewBtn">
+              <button>전체보기</button>
+              <button>포토/동영상</button>
+              <button>최신순</button>
+              <button>인기순</button>
+              <button>평점순</button>
+          </div>
+
+          <ul>
+
+              <li class="reviewList">
+                  <div class="reviewImg"></div>
+                  <div class="reviewInfo">
+                      <div>상품명</div>
+                      <div>옵션여부</div>
+                      <div>상품리뷰</div>
+                      </div>
+                      <div class="reviewWriter">
+                          <div>작성자 : 연서</div>
+                          <div>등록일 : 2023/12/18</div>
+                          <div>추천수 : 201</div>
+                      </div>
+                      <div class="reviewLike">
+                          <a href=""><i class="fa-solid fa-thumbs-up"></i></a>
+                      </div>
+              </li>
+              <li></li>
+              <li></li>
+              <li></li>
+          </ul>
+      </section>
+  </section>
+
+</body>
+</html>
