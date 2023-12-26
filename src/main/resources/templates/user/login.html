@@ -73,6 +73,10 @@
             color: white;
          }
 
+         .login_btn:hover{
+             cursor: pointer;
+         }
+
          .forget{
             width: 100%;
             text-align: center;
@@ -96,31 +100,28 @@
     </style>
 </head>
 <body>
-
-
-
-    <div class="wrap">
+    <form class="wrap" th:action="@{/user/login}" method="post">
         <h3>LOGIN</h3>
-
         <div class="input_wrap">
-            <input class="login_input" type="text" placeholder="ID / phone_number"/>
-            <input class="login_input" type="password" placeholder="password"/>
+            <input class="login_input" type="text" th:name="username" placeholder="ID / phone_number"/>
+            <input class="login_input" type="password" th:name="password" placeholder="password"/>
             <input type="checkbox" id="check">
             <label for="check">아이디 기억하기</label>
 
             <input class="login_btn" type="button" value="LOGIN">
             <div class="forget">
-               <a href="#">패스워드를 까먹었어요..</a>
+               <a href="findId.html">아이디를 까먹었어요..</a><br>
+               <a href="findPw.html">패스워드를 까먹었어요..</a>
             </div>
         </div>
 
         <p>
             회원이 아니신가요?
-            <a href="#">회원가입  &rarr;</a>
+            <a href="join.html">회원가입  &rarr;</a>
         </p>
 
 
-    </div>
+    </form>
 
 </body>
 
