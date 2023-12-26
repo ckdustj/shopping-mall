@@ -1,5 +1,6 @@
 package com.shop.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -7,10 +8,15 @@ import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -18,7 +24,7 @@ import java.util.Collection;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO implements UserDetails {
+public class UserDTO implements UserDetails, OAuth2User {
     @NotBlank
     @Length(min = 4, max = 15)
     private String id;
@@ -29,8 +35,28 @@ public class UserDTO implements UserDetails {
     private String email;
     @Pattern(regexp = "[0-9]{3}-[0-9]{3,4}-[0-9]{4}")
     private String tel;
+    @Valid
     @NotNull
     private ImageFileDTO imageFile;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime joinDate;
+
+    private String token;
+
+    private SnsInfoDTO snsInfo;
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return this.snsInfo.getAttributes();
+    }
+
+    @Override
+    public String getName() {
+        return this.snsInfo.getClientName();
+    }
+
+
     private Collection<? extends GrantedAuthority> authorities;
 
     @Override

@@ -87,8 +87,27 @@
             color: #808080;
          }
 
+         #kakao{
+             margin-top: 30px;
+             border-radius: 30px;
+             width: 175px;
+         }
+
+         #google{
+             margin-top: 30px;
+             margin-left: 10px;
+             width: 175px;
+         }
+
+         #naver{
+             width: 175px;
+             height: 43px;
+             border-radius: 30px;
+             margin-top: 10px;
+         }
+
          p{
-            margin-top: 100px;
+            margin-top: 50px;
             text-align: center;
             font-size: 18px;
             color: #808080;
@@ -96,6 +115,21 @@
 
          p a{
             color: hsl(209, 92%, 50%);
+         }
+
+         .login_path{
+             display: flex;
+             justify-content: space-between;
+         }
+
+         #join{
+             width: 175px;
+             height: 43px;
+             border-radius: 30px;
+             margin-top: 10px;
+             border: none;
+             font-weight: bold;
+             background-color: #d1efff;
          }
     </style>
 </head>
@@ -115,10 +149,17 @@
             </div>
         </div>
 
-        <p>
-            회원이 아니신가요?
-            <a href="join.html">회원가입  &rarr;</a>
-        </p>
+        <div class="login_path">
+        <a th:href="@{/oauth2/authorization/kakao}" ><img id="kakao" th:src="@{/image/kakao_login_medium_narrow.png}" src="../../static/image/kakao_login_medium_narrow.png"/></a>
+        <a th:href="@{/oauth2/authorization/google}" ><img id="google" th:src="@{/image/google_login.png}" src="../../static/image/google_login.png"/></a>
+        </div>
+        <div class="login_path">
+            <a th:href="@{/oauth2/authorization/naver}" ><img id="naver" th:src="@{/image/btnG_완성형.png}" src="../../static/image/btnG_완성형.png"/></a>
+            <a href="join.html"><button id="join">회원가입하기</button></a>
+        </div>
+
+
+
 
 
     </form>

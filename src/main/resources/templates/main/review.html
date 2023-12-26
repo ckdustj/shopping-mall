@@ -41,14 +41,14 @@
   ul{
     list-style: none;
     margin-left: 50px;
-    margin-top: 25px;
-    height: 380px;
+    margin-top: 10px;
+    height: 400px;
     overflow: scroll;
   }
 
   li{
     width: 700px;
-    height: 100px;
+    height: 200px;
     border: 1px solid pink;
     margin-bottom: 30px;
     display: flex;
@@ -61,6 +61,7 @@
     width: 150px;
     background-size: cover;
     background-repeat: no-repeat;
+    margin-top: 50px;
   }
 
   .info{
@@ -69,6 +70,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-left: 10px;
   }
 
   img{
@@ -85,6 +87,15 @@
     justify-content: right;
   }
 
+  .moreInfo > div{
+    margin-top: 60px;
+  }
+
+  .moreInfo > img{
+    margin-top: 63px;
+    margin-left: 5px;
+  }
+
   .moreInfo:hover{
     cursor: pointer;
   }
@@ -98,7 +109,7 @@
   .buttons{
     text-align: center;
     width: 100%;
-    margin-top: 10px;
+    margin-top: 5px;
   }
 
   button{
@@ -111,26 +122,59 @@
 
   button:hover{
     background-color: #f8e8f5;
+    cursor: pointer;
   }
 
   button + button{
     margin-left: 10px;
   }
+
+  p{
+    margin-left: 30px;
+    margin-top: 5px;
+  }
+
+  .details{
+    width: 100px;
+    font-size: 0.8rem;
+    border-radius: 8px;
+    height: 23px;
+    border: none;
+    background-color: #d5d5d5;
+    color: black;
+    margin-left: 10px;
+  }
+
+  .details:hover{
+    background-color: #525252;
+    color: white;
+  }
 </style>
 <body>
     <section class="reviewMain">
-      <div id="title">리뷰</div>
+      <div id="title">주문목록</div>
+      <p id="number_select"> 조회 기간 선택
+      <select>
+        <option>최근 6개월</option>
+        <option>최근 1년</option>
+        <option>2022년</option>
+        <option>2021년</option>
+      </select>
+      </p>
       <ul>
         <li>
           <input type="checkbox">
           <div class="photo" id="photo1"></div>
           <div class="info">
-            <div>제목 : 좋아요</div>
-            <div>작성 날짜 : 2021 / 12 / 21</div>
-            <div>평점 : ★★★★☆</div>
+            <div>상품명 : 인형</div>
+            <div>주문 번호 ; 123454566AAA</div>
+            <div>주문 진행도 : 배송 준비중</div>
+            <div>결제 일자 : 2023년 12월 25일</div>
+            <div>결제 금액 : 20000원<button class="details">결제 상세 보기</button></div>
+
           </div>
           <div class="moreInfo">
-            <div>상세보기</div>
+            <div>리뷰작성</div>
             <img src="https://cdn-icons-png.flaticon.com/128/2722/2722998.png">
           </div>
         </li>
@@ -138,12 +182,15 @@
           <input type="checkbox">
           <div class="photo" id="photo2"></div>
           <div class="info">
-            <div>제목 : 좋아요</div>
-            <div>작성 날짜 : 2021 / 12 / 21</div>
-            <div>평점 : ★★★★☆</div>
+            <div>상품명 : 인형</div>
+            <div>주문 번호 ; 123454566AAA</div>
+            <div>주문 진행도 : 배송 준비중</div>
+            <div>결제 일자 : 2023년 12월 25일</div>
+            <div>결제 금액 : 20000원<button class="details">결제 상세 보기</button></div>
+
           </div>
           <div class="moreInfo">
-            <div>상세보기</div>
+            <div>리뷰작성</div>
             <img src="https://cdn-icons-png.flaticon.com/128/2722/2722998.png">
           </div>
         </li>
@@ -151,35 +198,25 @@
           <input type="checkbox">
           <div class="photo" id="photo3"></div>
           <div class="info">
-            <div>제목 : 좋아요</div>
-            <div>작성 날짜 : 2021 / 12 / 21</div>
-            <div>평점 : ★★★★☆</div>
+            <div>상품명 : 인형</div>
+            <div>주문 번호 ; 123454566AAA</div>
+            <div>주문 진행도 : 배송 준비중</div>
+            <div>결제 일자 : 2023년 12월 25일</div>
+            <div>결제 금액 : 20000원<button class="details">결제 상세 보기</button></div>
+
           </div>
           <div class="moreInfo">
-            <div>상세보기</div>
+            <div>리뷰작성</div>
             <img src="https://cdn-icons-png.flaticon.com/128/2722/2722998.png">
           </div>
         </li>
 
-        <li>
-          <input type="checkbox">
-          <div class="photo" id="photo4"></div>
-          <div class="info">
-            <div>제목 : 좋아요</div>
-            <div>작성 날짜 : 2021 / 12 / 21</div>
-            <div>평점 : ★★★★☆</div>
-          </div>
-          <div class="moreInfo">
-            <div>상세보기</div>
-            <img src="https://cdn-icons-png.flaticon.com/128/2722/2722998.png">
-          </div>
-        </li>
       </ul>
-      <div class="buttons">
-        <button>전체선택</button>
-        <button>삭제하기</button>
-        <button>작성하기</button>
-      </div>
+<!--      <div class="buttons">-->
+<!--        <button>전체선택</button>-->
+<!--        <button>삭제하기</button>-->
+<!--        <button>작성하기</button>-->
+<!--      </div>-->
     </section>
 </body>
 </html>

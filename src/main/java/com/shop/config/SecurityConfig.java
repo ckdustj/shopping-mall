@@ -1,4 +1,4 @@
-package com.shop.config.security;
+package com.shop.config;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -16,15 +16,23 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception{
-        //CSRF
+        // CSRF
         http.csrf(c -> {});
-        //REQUEST
+        // REQUEST
+        http.authorizeHttpRequests(configure -> {
+            configure.anyRequest().permitAll();
+        });
+        // FORM-LOGIN
         http.formLogin(configure -> {
-            configure.loginPage("/login").defaultSuccessUrl("/");
+            configure.loginPage("/user/login")
+                    .loginProcessingUrl("/user/login")
+                    .defaultSuccessUrl("/");
             configure.permitAll();
         });
-        // DAUTH2
-
+        // OAUTH2
+        http.oauth2Login(configure -> {
+            configure.loginPage("/user/login").permitAll();
+        });
         // REMENBER ME
 
         return http.build();

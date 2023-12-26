@@ -2,12 +2,43 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koreait.shop.mapper.UserMapper">
-    <select id="login_user" resultType="UserDTO">
-        SELECT * FROM `user` WHERE `id` = #{id}
+
+    <resultMap id="find_user_with_details" type="UserDTO" autoMapping="true">
+        <id property="id" column="userID" />
+        <association property="imageFile">
+            <result property="data" column="profile_img" />
+        </association>
+        <association property="snsInfo" autoMapping="true">
+            <id property="id" column="snsID" />
+        </association>
+    </resultMap>
+
+    <select id="find_user" resultMap="find_user_with_details">
+        SELECT `SNS`.*, `USER`.*, `USER`.`id` AS 'userID', `SNS`.`id` AS 'snsID'
+        FROM `sns_info` `SNS`
+            INNER JOIN `user` `USER`
+            ON `SNS`.user_id = `USER`.id
+        <where>
+            <choose>
+                <when test="isSNS == true">
+                    `SNS`.`id` = #{id}
+                </when>
+                <otherwise>
+                    `USER`.`id` = #{id}
+                </otherwise>
+            </choose>
+        </where>
     </select>
+
 
     <insert id="join_user">
         INSERT INTO `user` VALUES
         (#{id}, #{email}, #{password}, #{tel}, #{imageFile.data})
     </insert>
+
+    <insert id="" parameterType="UserDTO">
+        INSERT INTO `sns_info` VALUES
+        (#{id}, #{user_id}, #{client_name}, #{attributes}, ${connect_date})
+    </insert>
+
 </mapper>

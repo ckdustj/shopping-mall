@@ -1,0 +1,154 @@
+package com.shop.service;
+
+import com.shop.dto.ImageFileDTO;
+import com.shop.dto.SnsInfoDTO;
+import com.shop.dto.UserDTO;
+import com.shop.mapper.UserMapper;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+@Log4j2
+@Service
+public class CustomOAuth2UserService extends DefaultOAuth2UserService {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserMapper userMapper;
+
+
+    @Override
+    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+        log.warn(" ======================= CustomOAuth2UserService =====================");
+        log.warn(userRequest);
+        ClientRegistration clientRegistration = userRequest.getClientRegistration();
+        String clientName = clientRegistration.getClientName();
+        log.warn("[" + clientName + "]" + "(으)로 로그인 중입니다...");
+        // 정보를 담고 있는 유저 맵을 생성한다
+        Map<String, Object> userPropertiesMap = create_user_properties_map();
+
+        OAuth2User oAuth2User = super.loadUser(userRequest);
+        Map<String, Object> paeamMap = oAuth2User.getAttributes();
+
+        switch (clientName.toUpperCase()){
+            case "KAKAO" -> get_kakao_properties(paeamMap, userPropertiesMap);
+            case "GOOGLE" -> get_google_properties(paeamMap, userPropertiesMap);
+            case "NAVER" -> get_naver_properties(paeamMap, userPropertiesMap);
+        }
+
+        String id = (String) userPropertiesMap.get("id");
+        UserDTO findedUserDTO = userMapper.find_user(id, true);
+        // 그 소셜 회원가입(등록) 기록이 있는가?
+        // 기록이 없었다. => 소셜 회원가입(등록) 해야 한다.
+        if((Objects.isNull(findedUserDTO.getSnsInfo().getId()))){
+            // 근데 유저 자체도 없네 ?? => 유저 회원가입(첫 등록)도 해야 한다.
+            if(Objects.isNull(findedUserDTO.getId())){
+                // 회원가입을 처음부터 끝까지 진행시킨다 ...
+            }
+            // 새로운 소셜 로그인만 등록하면 된다.
+            // 유저 정보에 새로운 소셜 정보를 추가한다...
+
+            // 받아온 정보로 유저 DTO를 생성한다..
+            UserDTO userDTO = create_userDTO(userPropertiesMap, userRequest.getAccessToken().getTokenValue());
+        }
+
+        // 유저가 있었다 => 그냥 로그인 시키면 됨
+        return findedUserDTO;
+    }
+
+    SnsInfoDTO snsInfoDTO = SnsInfoDTO.builder()
+                .id((String) userPropertiesMap.get("id"))
+                .clientName((String) userPropertiesMap.get("clientName"))
+                .connectDate(LocalDateTime.now())
+                .attributes(userPropertiesMap)
+                .build();
+
+
+        ImageFileDTO imageFileDTO = ImageFileDTO.builder()
+                .originalFileName((String) userPropertiesMap.get("profile_image"))
+                .savedFileName((String) userPropertiesMap.get("profile_image"))
+                .build();
+
+        UserDTO userDTO = UserDTO.builder()
+                .token(userRequest.getAccessToken().getTokenValue())
+                .tel((String) userPropertiesMap.get("mobile"))
+                .imageFile(imageFileDTO)
+                .email((String) userPropertiesMap.get("email"))
+                .snsInfoDTO(snsInfoDTO)
+                .build();
+
+//        log.error(userPropertiesMap);
+//
+////        log.warn(" ==============PARAM MAP==============");
+////        paeamMap.forEach((k, v) -> {
+////            log.warn(k + ": " + v);
+////        });
+//        log.warn("============TOKEN===========");
+//        log.warn(userRequest.getAccessToken().getTokenValue());
+//        log.warn(" ======================= ");
+//        return oAuth2User;
+//    }
+
+    public Map<String, Object> create_user_properties_map(){
+        Map<String, Object> userPropertiesMap = new HashMap<>();
+        userPropertiesMap.put("id", null);
+        userPropertiesMap.put("name", null);
+        userPropertiesMap.put("email", null);
+        userPropertiesMap.put("mobile", null);
+        userPropertiesMap.put("profile_image", null);
+        return userPropertiesMap;
+    }
+
+
+    public void get_kakao_properties(Map<String, Object> paramMap, Map<String, Object> userPropertiesMap){
+        Map<String, String> userMap = new HashMap<>();
+        Map<String, String> propertyMap = (Map<String, String>) paramMap.get("properties");
+        Long id = (Long) paramMap.get("id");
+        String name = propertyMap.get("nickname"); // 닉네임 (이름)
+        String profileImage = propertyMap.get("profile_image"); // 프로필 사진
+
+        userPropertiesMap.put("id", id.toString());
+        userPropertiesMap.put("name", name);
+        userPropertiesMap.put("profile_image", profileImage);
+
+    }
+
+    public void get_google_properties(Map<String, Object> paramMap, Map<String, Object> userPropertiesMap){
+        String id = (String) paramMap.get("sub"); // id
+        String name = (String) paramMap.get("name"); // 이름
+        String email = (String) paramMap.get("email"); // 이메일
+        String profileImage = (String) paramMap.get("picture"); // 프로필 사진
+
+        userPropertiesMap.put("id", id);
+        userPropertiesMap.put("name", name);
+        userPropertiesMap.put("email", email);
+        userPropertiesMap.put("profile_image", profileImage);
+    }
+
+    public void get_naver_properties(Map<String, Object> paramMap, Map<String, Object> userPropertiesMap){
+        Map<String, String> propertyMap = (Map<String, String>) paramMap.get("response");
+        String id = propertyMap.get("id");
+        String email = propertyMap.get("email");
+        String mobile = propertyMap.get("mobile");
+        String profileImage = propertyMap.get("profile_image");
+
+        userPropertiesMap.put("id", id);
+        userPropertiesMap.put("mobile", mobile);
+        userPropertiesMap.put("email", email);
+        userPropertiesMap.put("profileImage", profileImage);
+    }
+
+
+}

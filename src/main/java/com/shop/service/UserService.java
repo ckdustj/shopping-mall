@@ -10,7 +10,7 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
     public void login_user(UserDTO userDTO){
-        userMapper.find_user(userDTO);
+//        userMapper.find_user(userDTO);
     }
     // 회원가입
     public void join_user(UserDTO userDTO){
