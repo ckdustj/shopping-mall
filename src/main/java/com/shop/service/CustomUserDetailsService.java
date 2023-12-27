@@ -18,10 +18,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDTO userDTO = userMapper.find_user(username);
-        if(Objects.isNull(userDTO)){
-            throw new UsernameNotFoundException("해당 username이 존재하지 않음, [" + username + "]");
-        }
-        return userDTO;
+//        UserDTO userDTO = userMapper.find_user(username);
+//        if(Objects.isNull(userDTO)){
+//            throw new UsernameNotFoundException("해당 username이 존재하지 않음, [" + username + "]");
+//        }
+//        return userDTO;
+        return null;
     }
 }

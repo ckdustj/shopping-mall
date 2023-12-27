@@ -28,6 +28,9 @@ public class UserDTO implements UserDetails, OAuth2User {
     @NotBlank
     @Length(min = 4, max = 15)
     private String id;
+    @NotBlank
+    @Length(min = 88)
+    private String ci;
     @NotBlank(message = "password는 4-8자리여야함!")
     @Length(min = 4, max = 8)
     private String password;

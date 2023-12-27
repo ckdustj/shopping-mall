@@ -7,10 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserMapper {
-    // 유저 찾기
-    UserDTO find_user(String username);
-    // SNS (소셜) 유저 찾기
-    SnsInfoDTO find_sns_user(String id);
+    // 유저 찾기 + SNS (소셜) 유저 찾기
+    UserDTO find_user(String id, boolean isSNS);
 
     void join_user(UserDTO userDTO);
 

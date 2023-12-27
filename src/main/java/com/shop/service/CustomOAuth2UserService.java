@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+
 @Log4j2
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
@@ -31,21 +32,21 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        log.warn(" ======================= CustomOAuth2UserService =====================");
+        log.warn(" =========== CustomOAuth2UserService ============ ");
         log.warn(userRequest);
         ClientRegistration clientRegistration = userRequest.getClientRegistration();
         String clientName = clientRegistration.getClientName();
         log.warn("[" + clientName + "]" + "(으)로 로그인 중입니다...");
-        // 정보를 담고 있는 유저 맵을 생성한다
+        // 정보를 담고 있는 유저 맵을 생성한다.
         Map<String, Object> userPropertiesMap = create_user_properties_map();
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
-        Map<String, Object> paeamMap = oAuth2User.getAttributes();
+        Map<String, Object> paramMap = oAuth2User.getAttributes();
 
         switch (clientName.toUpperCase()){
-            case "KAKAO" -> get_kakao_properties(paeamMap, userPropertiesMap);
-            case "GOOGLE" -> get_google_properties(paeamMap, userPropertiesMap);
-            case "NAVER" -> get_naver_properties(paeamMap, userPropertiesMap);
+            case "KAKAO" -> get_kakao_properties(paramMap, userPropertiesMap);
+            case "GOOGLE" -> get_google_properties(paramMap, userPropertiesMap);
+            case "NAVER" -> get_naver_properties(paramMap, userPropertiesMap);
         }
 
         String id = (String) userPropertiesMap.get("id");
@@ -68,39 +69,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         return findedUserDTO;
     }
 
-    SnsInfoDTO snsInfoDTO = SnsInfoDTO.builder()
-                .id((String) userPropertiesMap.get("id"))
-                .clientName((String) userPropertiesMap.get("clientName"))
-                .connectDate(LocalDateTime.now())
-                .attributes(userPropertiesMap)
-                .build();
-
-
-        ImageFileDTO imageFileDTO = ImageFileDTO.builder()
-                .originalFileName((String) userPropertiesMap.get("profile_image"))
-                .savedFileName((String) userPropertiesMap.get("profile_image"))
-                .build();
-
-        UserDTO userDTO = UserDTO.builder()
-                .token(userRequest.getAccessToken().getTokenValue())
-                .tel((String) userPropertiesMap.get("mobile"))
-                .imageFile(imageFileDTO)
-                .email((String) userPropertiesMap.get("email"))
-                .snsInfoDTO(snsInfoDTO)
-                .build();
-
-//        log.error(userPropertiesMap);
-//
-////        log.warn(" ==============PARAM MAP==============");
-////        paeamMap.forEach((k, v) -> {
-////            log.warn(k + ": " + v);
-////        });
-//        log.warn("============TOKEN===========");
-//        log.warn(userRequest.getAccessToken().getTokenValue());
-//        log.warn(" ======================= ");
-//        return oAuth2User;
-//    }
-
     public Map<String, Object> create_user_properties_map(){
         Map<String, Object> userPropertiesMap = new HashMap<>();
         userPropertiesMap.put("id", null);
@@ -111,18 +79,15 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         return userPropertiesMap;
     }
 
-
     public void get_kakao_properties(Map<String, Object> paramMap, Map<String, Object> userPropertiesMap){
-        Map<String, String> userMap = new HashMap<>();
         Map<String, String> propertyMap = (Map<String, String>) paramMap.get("properties");
-        Long id = (Long) paramMap.get("id");
+        String id = (String) paramMap.get("id").toString();
         String name = propertyMap.get("nickname"); // 닉네임 (이름)
         String profileImage = propertyMap.get("profile_image"); // 프로필 사진
 
-        userPropertiesMap.put("id", id.toString());
+        userPropertiesMap.put("id", id);
         userPropertiesMap.put("name", name);
-        userPropertiesMap.put("profile_image", profileImage);
-
+        userPropertiesMap.put("profileImage", profileImage);
     }
 
     public void get_google_properties(Map<String, Object> paramMap, Map<String, Object> userPropertiesMap){
@@ -134,7 +99,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         userPropertiesMap.put("id", id);
         userPropertiesMap.put("name", name);
         userPropertiesMap.put("email", email);
-        userPropertiesMap.put("profile_image", profileImage);
+        userPropertiesMap.put("profileImage", profileImage);
     }
 
     public void get_naver_properties(Map<String, Object> paramMap, Map<String, Object> userPropertiesMap){
@@ -145,10 +110,38 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         String profileImage = propertyMap.get("profile_image");
 
         userPropertiesMap.put("id", id);
-        userPropertiesMap.put("mobile", mobile);
         userPropertiesMap.put("email", email);
+        userPropertiesMap.put("mobile", mobile);
         userPropertiesMap.put("profileImage", profileImage);
     }
 
+    public UserDTO create_userDTO(Map<String, Object> userPropertiesMap, String token){
+        String snsInfoId = (String) userPropertiesMap.get("id");
+        String snsInfoClientName = (String) userPropertiesMap.get("clientName");
+        String snsInfoProfileImage= (String) userPropertiesMap.get("profile_image");
+        String snsInfoMobile = (String) userPropertiesMap.get("mobile");
+        String snsInfoEmail = (String) userPropertiesMap.get("email");
 
+        SnsInfoDTO snsInfoDTO = SnsInfoDTO.builder()
+                .id(snsInfoId)
+                .clientName(snsInfoClientName)
+                .connectDate(LocalDateTime.now())
+                .attributes(userPropertiesMap)
+                .build();
+
+        ImageFileDTO imageFileDTO = ImageFileDTO.builder()
+                .originalFileName(snsInfoProfileImage)
+                .savedFileName(snsInfoProfileImage)
+                .build();
+
+        return UserDTO.builder()
+                .id("test-user")
+                .token(token)
+                .tel(snsInfoMobile)
+                .imageFile(imageFileDTO)
+                .email(snsInfoEmail)
+                .snsInfo(snsInfoDTO)
+                .build();
+    }
 }
+

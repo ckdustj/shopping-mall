@@ -33,7 +33,7 @@
 
     <insert id="join_user">
         INSERT INTO `user` VALUES
-        (#{id}, #{email}, #{password}, #{tel}, #{imageFile.data})
+        (#{id}, #{ci},#{email}, #{password}, #{tel}, #{imageFile.data}, now(), #{token})
     </insert>
 
     <insert id="" parameterType="UserDTO">
