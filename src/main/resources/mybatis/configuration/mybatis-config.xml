@@ -12,6 +12,6 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
-        <typeAlias type="com.shop.dto.UserDTO" alias="UserDTO" />
+        <typeAlias type="com.shop.dto.user.UserDTO" alias="UserDTO" />
     </typeAliases>
 </configuration>

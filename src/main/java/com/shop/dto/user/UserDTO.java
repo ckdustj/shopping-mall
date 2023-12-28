@@ -1,12 +1,12 @@
-package com.shop.dto;
+package com.shop.dto.user;
 
+import com.shop.dto.ImageFileDTO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
-import lombok.extern.log4j.Log4j2;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,7 +15,6 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 @Getter
@@ -56,7 +55,7 @@ public class UserDTO implements UserDetails, OAuth2User {
 
     @Override
     public String getName() {
-        return this.snsInfo.getClientName();
+        return this.id;
     }
 
 
@@ -69,26 +68,26 @@ public class UserDTO implements UserDetails, OAuth2User {
 
     @Override
     public String getUsername() {
-        return null;
+        return this.id;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

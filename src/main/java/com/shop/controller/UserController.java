@@ -1,6 +1,6 @@
 package com.shop.controller;
 
-import com.shop.dto.UserDTO;
+import com.shop.dto.user.UserDTO;
 import com.shop.service.UserCertificationService;
 import com.shop.service.UserService;
 import lombok.extern.log4j.Log4j2;

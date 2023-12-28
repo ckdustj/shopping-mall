@@ -1,4 +1,4 @@
-package com.shop.dto;
+package com.shop.dto.user;
 
 
 import lombok.*;
@@ -14,7 +14,8 @@ import java.util.Map;
 @AllArgsConstructor
 public class SnsInfoDTO {
     private String id;
+    private String userId;
     private String clientName;
-    private LocalDateTime connectDate;
     private Map<String, Object> attributes;
+    private LocalDateTime connectDate;
 }

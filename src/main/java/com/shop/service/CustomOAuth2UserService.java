@@ -1,8 +1,8 @@
 package com.shop.service;
 
 import com.shop.dto.ImageFileDTO;
-import com.shop.dto.SnsInfoDTO;
-import com.shop.dto.UserDTO;
+import com.shop.dto.user.SnsInfoDTO;
+import com.shop.dto.user.UserDTO;
 import com.shop.mapper.UserMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +29,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     @Autowired
     private UserMapper userMapper;
 
+    // --- 배포 단계에서는 제거해야 합니다.. ---
+    private final String USER_CI = "lOVSSALEXg5cU3EG3Xjk9tdb/lW2nw94/4wDD6k61rgWd9od96tRih+tV7s3zyYoCphTJoMVWIi2R+9RgzoouA==";
+
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -49,23 +52,28 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             case "NAVER" -> get_naver_properties(paramMap, userPropertiesMap);
         }
 
-        String id = (String) userPropertiesMap.get("id");
-        UserDTO findedUserDTO = userMapper.find_user(id, true);
-        // 그 소셜 회원가입(등록) 기록이 있는가?
-        // 기록이 없었다. => 소셜 회원가입(등록) 해야 한다.
-        if((Objects.isNull(findedUserDTO.getSnsInfo().getId()))){
-            // 근데 유저 자체도 없네 ?? => 유저 회원가입(첫 등록)도 해야 한다.
-            if(Objects.isNull(findedUserDTO.getId())){
-                // 회원가입을 처음부터 끝까지 진행시킨다 ...
-            }
-            // 새로운 소셜 로그인만 등록하면 된다.
-            // 유저 정보에 새로운 소셜 정보를 추가한다...
+        // 로그인 된 유저를 가져온다 ( 소셜 로그인 정보를 모두 가지고 있는 유저 객체 정보 )
+        // 여기서 로그인 된 유저는 철저히 SNS유저 상태의 정보임.
+        UserDTO loginedUser = create_userDTO(userPropertiesMap, userRequest.getAccessToken().getTokenValue());
+        loginedUser.getSnsInfo().setClientName(clientName);
 
-            // 받아온 정보로 유저 DTO를 생성한다..
-            UserDTO userDTO = create_userDTO(userPropertiesMap, userRequest.getAccessToken().getTokenValue());
+        // 로그인 된 유저의 정보로 DB에서 탐색한다 ( 해당 소셜의 정보만 )
+        UserDTO findedUserDTO = userMapper.find_user(loginedUser, true);
+        // 근데 유저 자체도 없네 ?? => 유저 회원가입(첫 등록)도 해야 한다.
+        if(Objects.isNull(findedUserDTO)) {
+            // 여기서 finedUserDTO는 기존 회원정보가 없는 빈 껍데기. 로그인 한 유저로 반환 (id=sns-user)
+            return loginedUser;
         }
 
-        // 유저가 있었다 => 그냥 로그인 시키면 됨
+        // 그 소셜 회원가입(등록) 기록이 있는가? 기록이 없었다. => 소셜 회원가입(등록) 해야 한다.
+        if(Objects.isNull(findedUserDTO.getSnsInfo())) {
+            // 찾은 기본 유저 정보 + 현재 로그인한 SNS 정보 합체
+            findedUserDTO.setSnsInfo(loginedUser.getSnsInfo());
+            // 새로운 소셜 로그인만 등록하면 된다. 유저 정보에 새로운 소셜 정보를 추가한다...
+            userMapper.insert_sns_info(findedUserDTO);
+        }
+
+        // 현재 로그인 한 유저를 DB 유저로 교체한다
         return findedUserDTO;
     }
 
@@ -135,7 +143,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 .build();
 
         return UserDTO.builder()
-                .id("test-user")
+                .id("temporary-custom-sns-user")
+                .ci(USER_CI)
                 .token(token)
                 .tel(snsInfoMobile)
                 .imageFile(imageFileDTO)

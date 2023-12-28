@@ -101,16 +101,16 @@
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
         <div class="input_wrap">
-            <input class="login_input" th:name="email" type="text" placeholder="email"/>
+            <input class="login_input" th:name="email" type="text" placeholder="email" th:if="${session.snsUser == null}" />
+            <input class="login_input" th:name="email" type="text" placeholder="email" th:if="${session.snsUser != null}" th:value="${session.snsUser.email}"/>
             <input class="login_input" th:name="id" type="text" placeholder="ID"/>
             <input class="login_input" th:name="password" type="password" placeholder="password"/>
             <input class="login_input" type="password" placeholder="password_check"/>
-            <input class="login_input" th:name="tel" type="number" placeholder="phone_number"/>
+            <input class="login_input" th:name="tel" type="tel" placeholder="phone_number"/>
             <input class="login_input" th:name="imageFile" type="file" />
             <input type="checkbox" class="check">개인정보 수집 동의</input>
             <input id="join_btn" type="submit" value="JOIN">
             <input id="cert_btn" type="button" value="본인인증하기">
-
         </div>
 
         <p>
@@ -178,8 +178,6 @@
                         joinBtn.textContent = "가입하기(인증완료)";
                         joinBtn.toggleAttribute('authenticated', true);
                         userVerified = true;
-                        // => 이후에 input 값 검사 후 submit으로 변경하기
-                        form.submit();
                     })
                     .catch(error => {
                         userVerified = false;

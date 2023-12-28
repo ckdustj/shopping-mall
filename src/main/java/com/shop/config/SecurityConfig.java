@@ -1,5 +1,6 @@
 package com.shop.config;
 
+import com.shop.service.CustomOAuth2SuccessHandler;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +33,7 @@ public class SecurityConfig {
         // OAUTH2
         http.oauth2Login(configure -> {
             configure.loginPage("/user/login").permitAll();
+            configure.successHandler(new CustomOAuth2SuccessHandler());
         });
         // REMENBER ME
 

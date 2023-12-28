@@ -133,37 +133,33 @@
          }
     </style>
 </head>
-<body>
-    <form class="wrap" th:action="@{/user/login}" method="post">
-        <h3>LOGIN</h3>
-        <div class="input_wrap">
-            <input class="login_input" type="text" th:name="username" placeholder="ID / phone_number"/>
-            <input class="login_input" type="password" th:name="password" placeholder="password"/>
-            <input type="checkbox" id="check">
-            <label for="check">아이디 기억하기</label>
+    <body>
+        <form class="wrap" th:action="@{/user/login}" method="post">
+            <h3>LOGIN</h3>
+            <div class="input_wrap">
+                <input class="login_input" type="text" th:name="username" placeholder="ID / phone_number"/>
+                <input class="login_input" type="password" th:name="password" placeholder="password"/>
+                <input type="checkbox" id="check">
+                <label for="check">아이디 기억하기</label>
 
-            <input class="login_btn" type="button" value="LOGIN">
-            <div class="forget">
-               <a href="findId.html">아이디를 까먹었어요..</a><br>
-               <a href="findPw.html">패스워드를 까먹었어요..</a>
+                <input class="login_btn" type="button" value="LOGIN">
+                <div class="forget">
+                   <a href="findId.html">아이디를 까먹었어요..</a><br>
+                   <a href="findPw.html">패스워드를 까먹었어요..</a>
+                </div>
             </div>
-        </div>
 
-        <div class="login_path">
-        <a th:href="@{/oauth2/authorization/kakao}" ><img id="kakao" th:src="@{/image/kakao_login_medium_narrow.png}" src="../../static/image/kakao_login_medium_narrow.png"/></a>
-        <a th:href="@{/oauth2/authorization/google}" ><img id="google" th:src="@{/image/google_login.png}" src="../../static/image/google_login.png"/></a>
-        </div>
-        <div class="login_path">
-            <a th:href="@{/oauth2/authorization/naver}" ><img id="naver" th:src="@{/image/btnG_완성형.png}" src="../../static/image/btnG_완성형.png"/></a>
-            <a href="join.html"><button id="join">회원가입하기</button></a>
-        </div>
-
-
-
-
-
-    </form>
-
-</body>
-
+            <div class="login_path">
+            <a th:href="@{/oauth2/authorization/kakao}" ><img id="kakao" th:src="@{/image/kakao_login_medium_narrow.png}" src="../../static/image/kakao_login_medium_narrow.png"/></a>
+            <a th:href="@{/oauth2/authorization/google}" ><img id="google" th:src="@{/image/google_login.png}" src="../../static/image/google_login.png"/></a>
+            </div>
+            <div class="login_path">
+                <a th:href="@{/oauth2/authorization/naver}" ><img id="naver" th:src="@{/image/btnG_완성형.png}" src="../../static/image/btnG_완성형.png"/></a>
+                <a href="join.html"><button id="join">회원가입하기</button></a>
+            </div>
+        </form>
+    </body>
 </html>
+<script>
+
+</script>
