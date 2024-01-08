@@ -1,10 +1,10 @@
 package com.shop.dto.product;
 
 import com.shop.dto.ImageFileDTO;
+import java.util.List;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter

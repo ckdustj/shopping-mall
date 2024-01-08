@@ -65,4 +65,11 @@ public class UserController {
             return "";
         }
     }
+
+    //***********************************************************
+    @ResponseBody
+    @GetMapping("/find/{phoneNumber}")
+    public String find_user_id(@PathVariable String phoneNumber){
+       return userService.find_user_id(phoneNumber);
+    }
 }
