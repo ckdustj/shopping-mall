@@ -67,8 +67,15 @@ public class UserController {
     }
 
     //***********************************************************
+    // ID, PW 찾기 페이지 이동
+    @GetMapping("/find")
+    public String get_find_page(){
+        return "user/findId";
+    }
+
+
     @ResponseBody
-    @GetMapping("/find/{phoneNumber}")
+    @GetMapping("/find/id/{phoneNumber}")
     public String find_user_id(@PathVariable String phoneNumber){
        return userService.find_user_id(phoneNumber);
     }

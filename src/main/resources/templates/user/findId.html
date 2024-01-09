@@ -64,6 +64,10 @@
         color: white;
     }
 
+    title{
+        text-align: center;
+        font-size: 1.6rem;
+    }
 
     p{
         margin-top: 80px;
@@ -86,9 +90,17 @@
     <h3>FIND</h3>
 
     <div class="input_wrap">
-        <input class="login_input" type="text" placeholder="Username"/>
-        <input class="login_input" type="text" placeholder="phone_number"/>
-        <input class="login_btn" type="button" value="FIND_ID">
+        <div class="title">휴대폰으로 찾기</div>
+<!--        <input class="login_input" type="text" placeholder="Username"/>-->
+        <input class="login_input" type="text" id="phoneNum" placeholder="phone_number"/>
+        <input class="login_btn" id="find_id" type="button" value="FIND_ID">
+
+    </div>
+    <div class="input_wrap">
+        <div class="title">비밀번호 재설정</div>
+        <input class="login_input" type="text" placeholder="아이디 입력"/>
+        <input class="login_input" type="text" placeholder="이메일 입력"/>
+        <input class="login_btn" type="button" value="이메일 전송하기">
 
     </div>
 
@@ -102,3 +114,18 @@
 
 </body>
 </html>
+<script>
+    const find_id = document.getElementById('find_id');
+    const phoneNum = document.getElementById('phoneNum');
+
+    find_id.onclick= () => {
+        fetch(`/user/find/id/${phoneNum.value}`)
+            .then(response => {return response.text()})
+            .then(response => {alert(response)})
+    }
+
+    // 폰버노
+    phoneNum.onchange = () => {
+        phoneNum.value = phoneNum.value.replace(/[^0-9]/g, '').replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+    }
+</script>

@@ -48,6 +48,10 @@ public class UserDTO implements UserDetails, OAuth2User {
 
     private SnsInfoDTO snsInfo;
 
+    private String pwReToken;
+
+    private LocalDateTime pwReTokenExpire;
+
     @Override
     public Map<String, Object> getAttributes() {
         return this.snsInfo.getAttributes();
